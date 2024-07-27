@@ -18,4 +18,9 @@ public class RestaurantService {
         Integer restaurantId = restaurantRepository.saveRestaurant(restaurant);
         return restaurantId;
     }
+
+    public Restaurant getRestaurantByName(String restaurantName){
+        Restaurant restaurant = restaurantRepository.getRestaurantByName(restaurantName);
+        return restaurant;
+    }
 }

@@ -1,6 +1,7 @@
 package com.react.restaurant.demo.repository;
 
 import com.react.restaurant.demo.model.Restaurant;
+import com.react.restaurant.demo.repository.rowMapper.RestaurantRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -37,5 +38,11 @@ public class RestaurantRepository {
         restaurant.setId(keyHolder.getKey().intValue());
 
         return restaurant.getId();
+    }
+
+    public Restaurant getRestaurantByName(String restaurantName){
+        String sql = "SELECT * FROM restaurant WHERE name = ?";
+        Restaurant restaurant = jdbcTemplate.queryForObject(sql, new Object[]{restaurantName}, new RestaurantRowMapper());
+        return restaurant;
     }
 }

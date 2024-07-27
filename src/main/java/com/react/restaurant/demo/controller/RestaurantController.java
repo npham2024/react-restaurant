@@ -5,10 +5,7 @@ import com.react.restaurant.demo.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("restaurant")
@@ -29,6 +26,17 @@ public class RestaurantController {
 
         } catch (Exception e) {
             System.out.println("restaurant/createRestaurant " + e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("getRestaurantByName/{restaurantName}")
+    public ResponseEntity<Restaurant> getRestaurantByName(@PathVariable String restaurantName) {
+        try{
+            Restaurant restaurant = restaurantService.getRestaurantByName(restaurantName);
+            return new ResponseEntity<>(restaurant, HttpStatus.OK);
+        } catch(Exception e){
+            System.out.println("restaurant/getRestaurantByName " + e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
