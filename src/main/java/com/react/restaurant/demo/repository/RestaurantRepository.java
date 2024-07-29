@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Statement;
 import java.sql.PreparedStatement;
+import java.util.List;
 
 @Repository
 public class RestaurantRepository {
@@ -45,4 +46,11 @@ public class RestaurantRepository {
         Restaurant restaurant = jdbcTemplate.queryForObject(sql, new Object[]{restaurantName}, new RestaurantRowMapper());
         return restaurant;
     }
+
+    public List<Restaurant> getAllRestaurants() {
+        String sql = "SELECT * FROM restaurant";
+        return jdbcTemplate.query(sql, new RestaurantRowMapper());
+    }
+
+    
 }

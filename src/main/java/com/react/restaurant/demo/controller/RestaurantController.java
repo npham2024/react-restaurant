@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("restaurant")
 public class RestaurantController {
@@ -30,6 +32,7 @@ public class RestaurantController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("getRestaurantByName/{restaurantName}")
     public ResponseEntity<Restaurant> getRestaurantByName(@PathVariable String restaurantName) {
         try{
@@ -40,4 +43,16 @@ public class RestaurantController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("getAllRestaurants")
+    public ResponseEntity<List<Restaurant>> getRestaurantByName() {
+        try{
+            List<Restaurant> restaurants = restaurantService.getAllRestaurants();
+            return new ResponseEntity<List<Restaurant>>(restaurants, HttpStatus.OK);
+        } catch(Exception e){
+            System.out.println("restaurant/getRestaurantByName " + e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

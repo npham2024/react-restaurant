@@ -5,6 +5,8 @@ import com.react.restaurant.demo.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RestaurantService {
 
@@ -22,5 +24,10 @@ public class RestaurantService {
     public Restaurant getRestaurantByName(String restaurantName){
         Restaurant restaurant = restaurantRepository.getRestaurantByName(restaurantName);
         return restaurant;
+    }
+
+    public List<Restaurant> getAllRestaurants(){
+        List<Restaurant> restaurants = restaurantRepository.getAllRestaurants();
+        return restaurants;
     }
 }
